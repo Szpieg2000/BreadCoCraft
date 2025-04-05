@@ -1,58 +1,154 @@
 // Game Info
 setGameInfo({
-    name: "My Grindcraft Game",                         // The name of your game!
+    name: "GrindCraft: Bread Expansion",                         // The name of your game!
     version: "0.1",                                     // The current version of your game!
-    icon: "images/system/blank.png",                    // Link or path to an icon image for your game!
-    ID: "myGrindcraftGame",                             // Your game's ID! Should be unique for every game!
+    icon: "images/system/pack.png",                    // Link or path to an icon image for your game!
+    ID: "GrindcraftBreadCo",                             // Your game's ID! Should be unique for every game!
 });
 
 // Resources
 
 addResources({                                          // Function for adding all the resources (items/tools/buildings) that are used in your game!
-    dirt: {
-        image: "images/dirt.png",
-    },
-    stick: {
-        image: "images/stick.png",
-    },
-    planks: {
-        image: "images/planks.png",
-    },
-    door: {
-        image: "images/door.png",
-    },
-    "crafting table": {
-        image: "images/craftingTable.png",
-    },
-    "dirt hut": {
-        image: "images/dirtHut.png",
-    },
+    "Oak log": {image: "images/Oak Log.png", },
+    "Stick": {image: "images/Stick.png",},
+    "Planks": {image: "images/Planks.png",},
+    "Wooden sword": {image: "images/Oak Sword.png",},
+    "Goop": {image: "images/Goop.png",},
+    "Whisp": {image: "images/Whisp.png",},
+    "Passport": {image: "images/Passport.png",},
+    "Wooden cup": {image: "images/Cup.png",},
+    "Water": {image: "images/Water.png",},
+    "String": {image: "images/String.png",},
+    "Fishing Rod": {image: "images/Fishing Rod.png",},
+    "Krashanka Fish": {image: "images/Krashanka Fish.png",},
+
+    
+    "Goop Contract": {image: "images/Contracts/GoopContract.png",},
 });
 
 // Areas
 
 addArea("c",                                            // Function for adding areas to your game
 {
-    name: "City State",
-    image: "images/areas/cityState.png",
+    name: "Whispering Kingdom",
+    image: "images/areas/WhisperingKingdom.png",
     unlocked: true,
     updateWhileUnactive: true,
 
     grinds: [
         {
-            name: "surface",
+        name: "Contract Office",
+        unlocked: false,
+        auto: [],                         // List of items that will auto-grind this grind
+        background: "images/grinds/ContractOffice.png",
+        resources: [
+            {
+                id: "Contract",
+                image: "images/Contracts/EmptyContract.png",
+                time: [["Passport", 20],],
+                probability: 100,
+                customResources: {
+                    random: [
+                        {
+                            name:"Goop Contract",
+                            amount: 1,
+                            probability: 50,
+                        },
+                    ]
+                },
+            },
+        ]
+    },
+        {
+            name: "Outside",
             unlocked: true,
-            auto: ["dirt hut"],                         // List of items that will auto-grind this grind
-            background: "images/grinds/overworld.png",
+            auto: [],                         // List of items that will auto-grind this grind
+            background: "images/grinds/WhispOutside.png",
             resources: [
                 {
-                    id: "stick",
-                    time: [["", 0.5]],
+                    id: "Stick",
+                    time: [["", 0.2]],
                     probability: 50,
                 },
                 {
-                    id: "dirt",
+                    id: "Oak log",
                     time: [["", 0.6]],
+                    probability: 50,
+                },
+                {
+                    id: "Water",
+                    time: [["Wooden cup", 0.5]],
+                    probability: 20,
+                },
+                {
+                    id: "Goop Monster",
+                    image: "images/Icons/Goop Monster.png",
+                    time: [["Wooden sword", 1, ]],
+                    probability: 20,
+                    customResources: {
+                        random: [
+                            {
+                                name:"Goop",
+                                amount: 2,
+                                probability: 40,
+                            },
+                            {
+                                name:"Goop",
+                                amount: 3,
+                                probability: 30,
+                            },
+                            {
+                                name:"Whisp",
+                                amount: 1,
+                                probability: 10,
+                            },
+                        ]
+                    },
+                },
+            ]
+        },
+        {
+            name: "Town Square",
+            unlocked: false,
+            auto: [],                         // List of items that will auto-grind this grind
+            background: "images/grinds/WhispTown.png",
+            resources: [
+                {
+                    id: "Beg",
+                    image: "images/Icons/Beg.png",
+                    time: [["Wooden cup", 5], ["", 10],],
+                    probability: 90,
+                    customResources: {
+                        random: [
+                            {
+                                name:"Whisp",
+                                amount: 1,
+                                probability: 40,
+                            },
+                            {
+                                name:"Whisp",
+                                amount: 2,
+                                probability: 30,
+                            },
+                            {
+                                name:"Whisp",
+                                amount: 3,
+                                probability: 30,
+                            },
+                        ]
+                    },
+                },
+            ]
+        },
+        {
+            name: "Port",
+            unlocked: false,
+            auto: [],                         // List of items that will auto-grind this grind
+            background: "images/grinds/WhispPort.png",
+            resources: [
+                {
+                    id: "Krashanka Fish",
+                    time: [["Fishing Rod", 0.5]],
                     probability: 50,
                 },
             ]
@@ -61,42 +157,90 @@ addArea("c",                                            // Function for adding a
 
     crafts: [
         {
-            name: "stick",
+            name: "Whisp",
+            displayName: "Contract: Goop",
+            displayImage: "images/Contracts/GoopContract.png",
+            desc: "2 Whisps - Collect 20 Goop",
+            type: "craft",
+            amount: 2,
+            showNumber: false,
+            cost: [["Goop Contract", 1], ["Goop", 20]],
+        },
+        {
+            name: "Oak log",
             desc: "Used to craft planks",
             type: "display",
-            cost: [["stick", 0]],
+            cost: [["Oak log", 0]],
         },
         {
-            name: "dirt",
-            desc: "Used to build a dirt hut",
+            name: "Stick",
+            desc: "Used to craft planks",
             type: "display",
-            cost: [["dirt", 0]],
+            cost: [["Stick", 0]],
         },
         {
-            name: "planks",
+            name: "Planks",
             desc: "Used to make a crafting table",
-            type: "craft",
-            cost: [["stick", 2]],
+            type: "craft",    
+            amount: 4,                                                     // Used if you get more than one of the item
+            cost: [["Oak log", 1]],
         },
         {
-            name: "crafting table",
-            desc: "Required to build a dirt hut",
-            type: "craft",
-            cost: [["planks", 4]],
+            name: "Wooden sword",
+            desc: "Used to Defend Yourself",
+            type: "craft",                                                   // Used if you get more than one of the item
+            cost: [["Stick", 3],["Planks", 3] ],
         },
         {
-            name: "door",
-            desc: "Required to build a dirt hut",
-            type: "craft",
-            amount: 3,
-            cost: [["planks", 6]],
+            name: "Goop",
+            desc: "Remnants of a decaying Disease. A good substitute for Glue.",
+            type: "display",                                                   // Used if you get more than one of the item
+            cost: [["Goop", 0]],
         },
         {
-            name: "dirt hut",
-            desc: "Required to beat the game!",
+            name: "Whisp",
+            desc: "Required to Trade for Goods",
+            type: "display",
+            cost: [["Whisp", 0]],
+        },
+        {
+            name: "Passport",
+            desc: "Required to Get inside The Whispered Kingdom",
             type: "craft",
-            cost: [["dirt", 23], ["crafting table", 1], ["door", 1]],
-            message: "You have beaten the game!",
+            unlockGrinds: ["Town Square", "Contract Office"],
+            cost: [["Whisp", 5]],
+            message: "Welcome back to Whispering Kingdom, Spyros..."
+        },
+        {
+            name: "Wooden cup",
+            desc: "Decreases begging Time",
+            type: "craft",
+            cost: [["Goop", 8], ["Planks", 1], ["Stick", 3], ["Passport", 0]],
+        },
+        {
+            name: "Water",
+            desc: "Yummy...?",
+            type: "display",
+            cost: [["Water", 0]],
+        },
+        {
+            name: "String",
+            desc: "",
+            type: "display",
+            unlockGrinds: ["Port"],
+            cost: [["String", 0]],
+        },
+        {
+            name: "Fishing Rod",
+            desc: "Used to fish in bodies of water.",
+            type: "craft",
+            cost: [["Stick", 2], ["String", 3]],
+        },
+        {
+            name: "Krashanka Fish",
+            desc: "Quite uncommon in this area specifically. Quite a nice Catch!",
+            type: "display",
+            cost: [["Krashanka Fish", 0]],
         },
     ],
 

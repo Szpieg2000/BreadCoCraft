@@ -1,1 +1,0 @@
-Area Background images should be 250x45 px!

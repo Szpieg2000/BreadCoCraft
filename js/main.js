@@ -467,6 +467,8 @@ function setUpCrafts() {
         // If the type isn't set, set it to "craft"
         if (!craft.type) craft.type = "craft";
 
+        if (!craft.showNumber) craft.showNumber = true;
+
         // Create elements
         let divEl = document.createElement("div");
         let imgEl = document.createElement("img");
@@ -479,6 +481,10 @@ function setUpCrafts() {
         imgEl.src = image;
         pEl.className = "craft-text";
         pEl.innerText = (player.resources[craftName].amount) ? player.resources[craftName].amount : "";
+    
+        if (craft.showNumber == false) {
+            pEL.innerText = ""
+        }
 
         // If the craft type isn't "display": Make it clickable
         if (craft.type !== "display") {
@@ -698,6 +704,7 @@ function showRecipe(e, resource, name) {
         // Get name and amount
         let matName = mat[0];
         let matAmount = mat[1];
+        
 
         // Create elements
         let divEl = document.createElement("div");
@@ -714,6 +721,10 @@ function showRecipe(e, resource, name) {
         if (matAmount) {
             pEl.innerText = (matAmount > 999999999) ? shortenNumber(matAmount) : matAmount;
         } else {
+            pEl.innerText = "";
+        }
+
+        if (resource.showNumber == false) {
             pEl.innerText = "";
         }
 
@@ -1380,7 +1391,11 @@ function screenUpdate(diff) {
 
         // If you have the resource, show the amount
         if (player.resources[craftName].amount) {
-            craftAmountTextEl.innerText = (player.resources[craftName].amount > 999999999) ? shortenNumber(player.resources[craftName].amount) : player.resources[craftName].amount;
+            if (player.resources[craftName].showNumber != false) {
+                craftAmountTextEl.innerText = (player.resources[craftName].amount > 999999999) ? shortenNumber(player.resources[craftName].amount) : player.resources[craftName].amount;
+            } else {
+                craftAmountTextEl.innerText = "";
+            }
         } else {
             craftAmountTextEl.innerText = "";
         }
